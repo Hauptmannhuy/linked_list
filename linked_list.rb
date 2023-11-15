@@ -35,6 +35,37 @@ class LinkedList
     end
   end
 
+  def pop
+   previous = @head
+   (self.size-2).times do
+    previous = previous.next_node
+   end
+   out = @tail
+   @tail = previous
+   @tail.next_node = nil
+   out
+  end
+
+  def contains?(value)
+    current = @head
+    while current
+    return true if current.value == value
+    current = current.next_node
+    end
+    false
+  end
+
+  def find(value)
+    index = 0
+    current = @head
+    while current
+      return index if current.value == value
+      current = current.next_node
+      index+=1
+    end
+    nil
+  end
+
 def size
   count = 0
   current = @head    
@@ -46,7 +77,12 @@ def size
 end
 
 def get_head
- ["Node: #{self.head.instance_variable_get(:@value)}, next node is #{self.head.next_node.instance_variable_get(:@value)}"]
+  @head
+#  ["Node: #{self.head.instance_variable_get(:@value)}, next node is #{self.head.next_node.instance_variable_get(:@value)}"]
+end
+
+def get_tail
+  @tail
 end
 
 def at (index)
