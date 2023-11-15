@@ -35,6 +35,16 @@ class LinkedList
     end
   end
 
+  def to_s
+    output = ''
+    current = @head
+    while current
+      output = output + "( #{current.value} )" + ' ->' + "#{current.next_node == nil ? 'nil' : nil}"
+    current = current.next_node
+    end
+    output
+  end
+
   def pop
    previous = @head
    (self.size-2).times do
@@ -106,4 +116,10 @@ class Node
 end
 
 list = LinkedList.new()
+list.prepend
+list.prepend
+list.prepend
+list.prepend
+list.prepend
+list.prepend
 list.prepend
