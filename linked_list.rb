@@ -7,8 +7,8 @@ class LinkedList
   end
 
   
-  def append
-    new_node = Node.new()
+  def append(value = rand(100).to_s)
+    new_node = Node.new(value)
     if @head.nil?
       @head = new_node
     elsif @tail.nil?
@@ -20,8 +20,8 @@ class LinkedList
     end
     end
   
-  def prepend
-    new_node = Node.new()
+  def prepend(value = rand(100).to_s)
+    new_node = Node.new(value)
     if @head.nil?
       @head = new_node
     elsif !@head.nil? && @tail.nil?
@@ -39,10 +39,10 @@ class LinkedList
     output = ''
     current = @head
     while current
-      output = output + "( #{current.value} )" + ' ->' + "#{current.next_node == nil ? 'nil' : nil}"
+      output = output + "( #{current.value} )" + ' -> '
     current = current.next_node
     end
-    output
+    output += 'nil'
   end
 
   def pop
@@ -86,6 +86,30 @@ def size
   count
 end
 
+def insert_at(index,value)
+  new_node = Node.new(value)
+  current = @head
+  size = self.size
+  if index == 0 
+  prepend(value)
+  @head.value = value
+  self
+  elsif index == size
+    append(value)
+    @tail.value = value
+    self
+  elsif index >= 1 && index < size
+    (index-1).times {current = current.next_node}
+    new_node.next_node = current.next_node
+    current.next_node = new_node
+    self
+   else
+   'Invalid index'
+  end
+
+end
+
+
 def get_head
   @head
 #  ["Node: #{self.head.instance_variable_get(:@value)}, next node is #{self.head.next_node.instance_variable_get(:@value)}"]
@@ -108,18 +132,13 @@ end
 
 class Node
   attr_accessor :value, :next_node
-  def initialize
-    @value = rand(100).to_s
+  def initialize(value = rand(100).to_s)
+    @value = value
     @next_node = nil
-
   end
 end
 
 list = LinkedList.new()
 list.prepend
-list.prepend
-list.prepend
-list.prepend
-list.prepend
-list.prepend
-list.prepend
+list.append
+list.append
